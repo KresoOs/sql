@@ -18,12 +18,13 @@ create table izlozbe(
 sifra int not null primary key identity(1,1),
 ime varchar(150),
 sponzor int,
+kustos int,
 );
 create table kustosi(
 sifra int not null primary key identity(1,1),
 ime varchar(50),
 prezime varchar(50),
-izlozba int,
+
 );
 create table sponzori(
 sifra int not null primary key identity(1,1),
@@ -33,4 +34,4 @@ iznos decimal(18,2),
 );
 alter table djela add foreign key (izlozba) references izlozbe(sifra);
 alter table izlozbe add foreign key (sponzor) references sponzori(sifra);
-alter table kustosi add foreign key (izlozba) references izlozbe(sifra);
+alter table izlozbe add foreign key (kustos) references kustosi(sifra);
