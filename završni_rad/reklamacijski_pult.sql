@@ -28,17 +28,13 @@ create table kupci (
 
 );
 
-create table reklamacije (
-	sifra int not null primary key identity(1,1),
-	kupac int,
-	datum date,
 
-);
 
 create table radninalozi (
 	sifra int not null primary key identity(1,1),
 	proizvod int,
-	reklamacija int,
+	kupac int,
+	datum date,
 
 );
 
@@ -83,7 +79,7 @@ insert into statusi (naziv)
 		('Izdano');
 
 alter table radninalozi add foreign key (proizvod) references proizvodi (sifra);
-alter table radninalozi add foreign key (reklamacija) references reklamacije (sifra);
+
 alter table statusi add foreign key (radninalog) references radninalozi (sifra);
 alter table statusi add foreign key (djelatnik) references djelatnici (sifra);
-alter table reklamacije add foreign key (kupac) references kupci (sifra);
+alter table radninalozi add foreign key (kupac) references kupci (sifra);
