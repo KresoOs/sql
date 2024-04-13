@@ -1,4 +1,4 @@
-select name, collation_name from sys.databases;
+﻿select name, collation_name from sys.databases;
 go
 alter database db_aa6919_reklamacijskipult set single_user with rollback immediate;
 go
@@ -40,51 +40,76 @@ create table radninalozi (
 	proizvod int,
 	kupac int,
 	datum date,
+	napomena varchar(150),
+	
+	
+	
 
 );
 
-create table statusi (
+create table stanja (
 	sifra int not null primary key identity(1,1),
-	radninalog int,
-	djelatnik int,
+	
+	
 	naziv varchar(50),
-	napomena varchar(150),
+	
+
+);
+
+create table promjena (
+sifra int not null primary key identity(1,1),
+djelatnik int,
+stanje int,
+radninalog int
 
 );
 
 insert into djelatnici (ime,prezime)
 	values
-	('Kre�imir','Bilokapi?'),
-	('Goran','?utuk'),
-	('Marko','Pavi?i?'),
+	('Krešimir','Bilokapić'),
+	('Goran','Ćutuk'),
+	('Marko','Pavičić'),
 	('Ivan','Demeter');
 	
 insert into proizvodi (ime,opis,jedinica_kolicine)
 	values
-	('Dje?ji pametni sat MYKI 4 Lite','pametni sat posebno dizajniran za djecu','kom'),
-	('Elektri?ni romobil MS ENERGY Energy m10','Energy m10, autonomija do 28km, brzina 25km/h, kota?i 8?, sivi','kom'),
-	('Tipkovnica OCTIO K100U','Tip tipkovnice: USB �i?ana','kom');
+	('Dječji pametni sat MYKI 4 Lite','pametni sat posebno dizajniran za djecu','kom'),
+	('Električni romobil MS ENERGY Energy m10','Energy m10, autonomija do 28km, brzina 25km/h, kotači 8", sivi','kom'),
+	('Tipkovnica OCTIO K100U','Tip tipkovnice: USB žičana','kom');
 
 insert into kupci (ime,prezime,telefon,email)
 	values
-	('Kre�imir','Bilokapi?','099/214-1409','ilead7@gmail.com'),
+	('Krešimir','Bilokapić','099/214-1409','ilead7@gmail.com'),
 	('Danijel','Bjelajac','098/169-8828','ulead7@gmail.com'),
 	('Duje','Gari?','095/300-600','elead7@gmail.com');
 
-insert into statusi (naziv)
+insert into stanja (naziv)
 	values
 		('Zaprimljeno'),
 		('Poslano u servis'),
 		('Zaprimljeno u servisu'),
 		('Dijagnostika'),
-		('Servis zavr�en'),
+		('Servis završen'),
 		('Poslano u poslovnicu'),
 		('Zaprimljeno u poslovnici'),
-		('Kupac obavije�ten'),
+		('Kupac obaviješten'),
 		('Izdano');
+insert into radninalozi (proizvod,kupac,datum)
+	values
+		(1,1,'2024-04-04')
+insert into promjena (djelatnik,stanje,radninalog)
+	values
+		(1,1,1)
+		
 
 alter table radninalozi add foreign key (proizvod) references proizvodi (sifra);
 
-alter table statusi add foreign key (radninalog) references radninalozi (sifra);
-alter table statusi add foreign key (djelatnik) references djelatnici (sifra);
+alter table promjena add foreign key (radninalog) references radninalozi (sifra);
+alter table promjena add foreign key (djelatnik) references djelatnici (sifra);
+alter table promjena add foreign key (stanje) references stanja (sifra);
+
 alter table radninalozi add foreign key (kupac) references kupci (sifra);
+
+
+
+
