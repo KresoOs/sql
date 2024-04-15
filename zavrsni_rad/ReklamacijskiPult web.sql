@@ -56,7 +56,7 @@ create table stanja (
 
 );
 
-create table promjena (
+create table promjene (
 sifra int not null primary key identity(1,1),
 djelatnik int,
 stanje int,
@@ -97,16 +97,16 @@ insert into stanja (naziv)
 insert into radninalozi (proizvod,kupac,datum)
 	values
 		(1,1,'2024-04-04')
-insert into promjena (djelatnik,stanje,radninalog)
+insert into promjene (djelatnik,stanje,radninalog)
 	values
 		(1,1,1)
 		
 
 alter table radninalozi add foreign key (proizvod) references proizvodi (sifra);
 
-alter table promjena add foreign key (radninalog) references radninalozi (sifra);
-alter table promjena add foreign key (djelatnik) references djelatnici (sifra);
-alter table promjena add foreign key (stanje) references stanja (sifra);
+alter table promjene add foreign key (radninalog) references radninalozi (sifra);
+alter table promjene add foreign key (djelatnik) references djelatnici (sifra);
+alter table promjene add foreign key (stanje) references stanja (sifra);
 
 alter table radninalozi add foreign key (kupac) references kupci (sifra);
 
